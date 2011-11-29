@@ -1,6 +1,7 @@
 %li[invoice]{ highlightable(dom_id(invoice, :tools)) }
   - if invoice.status
-    .strip{:class => invoice.status}= Setting.invoice_status[invoice.status.intern]
+    .strip{:class => invoice.status}
+      = t(invoice.status) 
   - else
     .strip{:style => "color:white;"} Other
   .tools{ invisible, :id => dom_id(invoice, :tools) }

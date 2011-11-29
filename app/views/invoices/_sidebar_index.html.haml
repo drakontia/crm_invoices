@@ -1,11 +1,10 @@
 .filters#filters
-  = render :partial => "common/search"
-  - Setting.invert(:invoice_status).each do |key, value|
-    .check_box{:style => "border-bottom: 1px silver dotted;"}
-      %div{:style => "float:right;"}
-        = @invoice_status_total[value]
-      = invoice_status_checbox(value, @invoice_status_total[value]) << " " << key
-  .check_box
-    %div{:style => "float:right;"}
-      %b= @invoice_status_total[:all]
-    %b Total Invoices
+  = render :partial => "shared/search"
+
+  %h4{ :style => "margin:16px 0 8px 0; border-bottom: 1px solid grey; padding-bottom:2px;" } #{t :filter_by_status}
+  - Setting.invoice_status.each do |key|
+    .check_box{ :style => "border-bottom: 1px silver dotted;" }
+      %div{ :style => "float: right;" }
+        = @invoice_status_total[key]
+      = invoice_status_checkbox(key, @invoice_status_total[key])
+      = label_tag(key, t(key))

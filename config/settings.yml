@@ -1,0 +1,27 @@
+# Invoice Status. To add custom status use string value, for example:
+#
+# issue_status:
+#   - :unresolved
+#   - :bug_resolved
+#   - :issue_resolved
+#
+#------------------------------------------------------------------------------
+invoice_stem: DR_2009
+
+invoice_currencies: [ ["USD", :dollar], ["GBP", :sterling], ["EUR", :euro] ]
+
+invoice_vat: 
+  "Standard" : 17.5 
+  "Low" : 6
+  "High" : 22.5
+  "Zero" : 0
+
+invoice_status:
+  - :open
+  - :approved
+  - :sent
+  - :credit
+  - :late
+  - :demand
+  - :legal
+  - :paid

@@ -86,8 +86,8 @@
   
   -#-----------------------------------------------------------------------------
   %br
-  = render :partial => "common/new_comment", :locals => { :commentable => @invoice } 
-  = render :partial => "common/comment", :collection => @invoice.comments
+  = render :partial => "shared/new_comment", :locals => { :commentable => @invoice } 
+  = render :partial => "shared/comment", :collection => @invoice.comments
   
   -#-----------------------------------------------------------------------------
   %br
@@ -95,5 +95,5 @@
   .subtitle#create_task_title Tasks
   .remote#create_task{ hidden }
   .log#tasks
-    = render :partial => "common/tasks"
+    = render :partial => "shared/tasks"
   = hook(:show_invoice_bottom, self)

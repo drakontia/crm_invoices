@@ -16,6 +16,8 @@
 #------------------------------------------------------------------------------
 
 class InvoicesController < ApplicationController
+  unloadable
+    
   before_filter :require_user
   before_filter :get_data_for_sidebar, :only => :index 
   before_filter :set_current_tab, :only => [ :index, :show ]
@@ -26,7 +28,6 @@ class InvoicesController < ApplicationController
   before_filter :find_record, :only => [:update, :edit, :show, :destroy]
   after_filter  :update_recently_viewed, :only => :show
   
-  unloadable
   
   #default setup for Prawnto
   #prawnto :prawn => { :top_margin => 75 }
@@ -71,7 +72,8 @@ class InvoicesController < ApplicationController
     @account  = Account.new(:user => @current_user)
     @accounts = Account.my(@current_user).all(:order => "name")
     # invoice stem is added to the unique counter for the current year, meaning users cant make up their own, check Settings.rb 
-    @invoice.uniqueid="#{Setting.invoice_stem}#{Invoice.thisyear.size+1}"
+    @invoice.uniqueid="1000"
+    #@invoice.uniqueid="#{Setting.invoice_stem}#{Invoice.thisyear.size+1}"
     # assume that the default number numer of days for the invoice to be due to 30 days, could set this in a preference later
     @invoice.due_date=30.days.from_now.strftime("%m/%d/%Y") 
         
@@ -110,7 +112,10 @@ class InvoicesController < ApplicationController
     ##make sure that the invoice unique ID is set on creation, used the named_scope "thisyear" in Invoice.rb model , 
     ## TODO should store this in db and increment it, incase lots of deleted invoices lead to duplicate unique ids
     
-    @invoice.uniqueid="#{Setting.invoice_stem}#{Invoice.thisyear.size+1}"
+    t1 = Setting.invoice_stem
+    t2 = Invoice.thisyear.length
+    
+    @invoice.uniqueid="#{Setting.invoice_stem}#{Invoice.thisyear.length+1}"
     respond_to do |format|
       if @invoice.save_with_account_and_permissions(params)
         
@@ -257,7 +262,7 @@ class InvoicesController < ApplicationController
   
    def get_data_for_sidebar
     @invoice_status_total = { :all => Invoice.my(@current_user).count}
-    Setting.invoice_status.keys.each do |key|
+    Setting.invoice_status.each do |key|
       @invoice_status_total[key] = Invoice.my(@current_user).count(:conditions => [ "status=?", key.to_s ])
     end
   end

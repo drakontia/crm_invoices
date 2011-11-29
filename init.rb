@@ -6,9 +6,9 @@ FatFreeCRM::Plugin.register(:crm_invoices, initializer) do
        version "0.1"
    description "Basic invoice tracking"
   dependencies :haml, :simple_column_search
-           tab :main, :text => "Invoices", :url => { :controller => "invoices" }
+           tab :main, :text => :tab_invoices, :url => { :controller => "invoices" }
 end
 
 # Require the actual code after all plugin dependencies have been resoved.
 require 'crm_invoices'
-require "show_account_hook"
+require "show_account_invoices"

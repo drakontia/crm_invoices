@@ -1,15 +1,17 @@
-ActionController::Routing::Routes.draw do |map|
-
-  resources :invoices do
-    resources :comments
-    collection do
-      get :search
-      post :auto_complete
-      get :options
-      get :laterun
-      post :redraw
-      post :redraw_late
+Rails.application.routes.draw do |map|
+  scope (!Setting.table_exists? || Setting.base_url.blank?) ? "/" : Setting.base_url do
+    resources :invoices do
+      collection do
+        get   :search
+        get   :filter
+        post  :auto_complete
+        get   :options
+        post  :redraw
+        get   :laterun
+        post  :redraw
+        post  :redraw_late
+      end
+      resources :comments
     end
   end
-
 end

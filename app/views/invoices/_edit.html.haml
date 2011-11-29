@@ -10,6 +10,6 @@
     = render :partial => "invoices/extra",       :locals => { :f => f, :edit => true }
     = render :partial => "invoices/permissions", :locals => { :f => f, :edit => true }
     .buttonbar
-      = f.submit "Save invoice", :onclick => %/$("account_assigned_to").value = $F("invoice_assigned_to")/
-      or
+      = f.submit t(:save_invoice), :onclick => %/$("account_assigned_to").value = $F("invoice_assigned_to")/
+      #{t :or}
       = link_to_cancel edit_invoice_path(@invoice)

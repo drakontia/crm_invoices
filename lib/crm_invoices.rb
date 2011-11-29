@@ -12,4 +12,4 @@ Rails.configuration.to_prepare do
 end
 
 # Make the invoices commentable.
-CommentsController::COMMENTABLE = CommentsController::COMMENTABLE + %w(invoice_id)
+CommentsController.commentables = CommentsController.commentables + %w(invoice_id)

@@ -1,0 +1,46 @@
+zh-CN:
+  language: 中文（简体）
+  
+  
+  tab_invoices: 发票
+  invoice: 发票
+  invoice: 发票
+  invoice_small: 发票
+  invoices: 发票
+  invoices_small: 发票
+  subject_invoice: 发票
+  invoice_summary: 发票摘要  
+  create_invoice: 创建发票
+  laterun: 过期发票
+  save_invoice: 保存发票
+  myself: 自己
+  priority: 优先级
+  low: 最低
+  minor: 很低
+  major: 很高
+  critical: 严重
+  due_date: 期限的
+  due_on: 应到期于
+  reported_at: 接收于
+  description: 简短描述
+
+  new: 未处理
+  in_process: 正在处理中
+  completed: 已完成
+  reopened: 重新打开
+  closed: 已关闭
+
+  filter_by_priority: 按优先级过滤
+  filter_by_status: 按状态过滤
+  total_invoices: 发票总数
+  
+  activerecord:
+    errors:
+      models:
+        invoice:
+          attributes:
+            name:
+              missing_invoice_name: "^请输入发票的简短描述！"
+            description:
+              missing_invoice_description: "^请输入发票的详细描述！"
+  

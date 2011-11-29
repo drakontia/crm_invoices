@@ -17,9 +17,13 @@
 
 module InvoicesHelper
 
-  def invoice_status_checbox(status, count)
+  def invoice_status_checkbox(status, count)
     checked = (session[:filter_by_invoice_status] ? session[:filter_by_invoice_status].split(",").include?(status.to_s) : count > 0)
     check_box_tag("status[]", status, checked, :onclick => remote_function(:url => { :action => :filter }, :with => %Q/"status=" + $$("input[name='status[]']").findAll(function (el) { return el.checked }).pluck("value")/))
+  end
+
+  def invoice_status_codes_for(invoice)
+    Setting.unroll(:invoice_status)
   end
 
 end

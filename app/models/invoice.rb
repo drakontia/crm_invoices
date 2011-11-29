@@ -56,7 +56,7 @@ class Invoice < ActiveRecord::Base
   scope :assigned_to, lambda { |user| { :conditions => "assigned_to = #{user.id}" } }
 
   year=Time.now.strftime("%Y")
-  scope :thisyear, lambda { |invoice| {:conditions => ["created_at > '01/01/#{year}'"] }}
+  scope :thisyear, lambda { {:conditions => ["created_at > '01/01/#{year}'"] }}
   scope :recent, lambda { |*args| {:conditions => ["due_date < ?", (args.first || 2.weeks.ago)] }}
 
   ##restrict the invoices to the current user
@@ -65,7 +65,7 @@ class Invoice < ActiveRecord::Base
 
   uses_user_permissions
   acts_as_commentable
-  acts_as_paranoid
+  is_paranoid
 
   validates_presence_of :title, :message => "^Please specify an invoice title."
   validates_presence_of :amount, :message => "^Please specify an amount for the invoice."

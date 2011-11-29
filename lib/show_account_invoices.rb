@@ -1,4 +1,4 @@
-class ShowAccountHook < FatFreeCRM::Callback::Base
+class ShowAccountInvoices < FatFreeCRM::Callback::Base
 
   # Gets called as hook(:show_account_bottom, self) from views/accounts/show.html.haml
   #-----------------------------------------------------------------------------------
