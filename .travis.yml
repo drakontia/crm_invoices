@@ -30,4 +30,4 @@ matrix:
       env: DB=mysql
       gemfile: Gemfile.ci
 
-bundler_args: --path=vendor/bundle --without heroku
+bundler_args: --without heroku
