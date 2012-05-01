@@ -1,16 +1,16 @@
 # Fat Free CRM
 # Copyright (C) 2008-2009 by Michael Dvorkin
-# 
+#
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU Affero General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #------------------------------------------------------------------------------
@@ -27,14 +27,14 @@
 #  title           :string(64)  not null  default ""
 #  description     :string(128  not null  default ""
 #  amount          :float(10)  not null  default ""
-#  vat             :float(10) 
-#  additions       :float(10) 
-#  total           :string(10) not null 
+#  vat             :float(10)
+#  additions       :float(10)
+#  total           :string(10) not null
 #  currency        :string
 #  status          :string(64) not null  default ""
-#  purchase_order  :string(20) 
+#  purchase_order  :string(20)
 #  uniqueid        :string(64) not null  default ""
-#  invoice_address 
+#  invoice_address
 #  due_date        :datetime
 #  sent_date       :datetime
 #  deleted_at      :datetime
@@ -51,31 +51,31 @@ class Invoice < ActiveRecord::Base
   has_many    :activities, :as => :subject, :order => 'created_at DESC'
   has_many    :ledgeritems
 
-  named_scope :only, lambda { |filters| { :conditions => [ "status IN (?)" + (filters.delete("other") ? " OR status IS NULL" : ""), filters ] } }
-  named_scope :created_by, lambda { |user| { :conditions => "user_id = #{user.id}" } }
-  named_scope :assigned_to, lambda { |user| { :conditions => "assigned_to = #{user.id}" } }
-  
+  scope :only, lambda { |filters| { :conditions => [ "status IN (?)" + (filters.delete("other") ? " OR status IS NULL" : ""), filters ] } }
+  scope :created_by, lambda { |user| { :conditions => "user_id = #{user.id}" } }
+  scope :assigned_to, lambda { |user| { :conditions => "assigned_to = #{user.id}" } }
+
   year=Time.now.strftime("%Y")
-  named_scope :thisyear, lambda { |invoice| {:conditions => ["created_at > '01/01/#{year}'"] }}
-  named_scope :recent, lambda { |*args| {:conditions => ["due_date < ?", (args.first || 2.weeks.ago)] }}
-  
+  scope :thisyear, lambda { |invoice| {:conditions => ["created_at > '01/01/#{year}'"] }}
+  scope :recent, lambda { |*args| {:conditions => ["due_date < ?", (args.first || 2.weeks.ago)] }}
+
   ##restrict the invoices to the current user
-  named_scope :sent, lambda { |filters| { :conditions => [ "status = ? sent" ]} }
+  scope :sent, lambda { |filters| { :conditions => [ "status = ? sent" ]} }
   simple_column_search :title, :description, :status, :total, :match => :middle, :escape => lambda { |query| query.gsub(/[^\w\s\-\.']/, "").strip }
-  
+
   uses_user_permissions
   acts_as_commentable
   acts_as_paranoid
-  
+
   validates_presence_of :title, :message => "^Please specify an invoice title."
   validates_presence_of :amount, :message => "^Please specify an amount for the invoice."
   validates_presence_of :account_invoice, :message => "^Please specify an account for the invoice."
   validates_presence_of :due_date, :message => "^Please specify a due date for the invoice."
-  
+
   validate :users_for_shared_access
-  
+
   before_save :update_total
- 
+
   SORT_BY = {
     "title" => "invoices.title DESC",
     "description" => "invoices.description DESC",
@@ -103,7 +103,7 @@ class Invoice < ActiveRecord::Base
   def self.late_by  ;  "30 days" ; end
   def self.title_position ;  "before"        ; end
 
-  # Convert the curreny to a symbol, could be done elsewhere 
+  # Convert the curreny to a symbol, could be done elsewhere
   #----------------------------------------------------------------------------
   def get_currency_symbol(currency)
     case currency
@@ -112,7 +112,7 @@ class Invoice < ActiveRecord::Base
       else "&#8364;"  # euro
     end
   end
-   
+
   #----------------------------------------------------------------------------
    def full_name(format = nil)
     c = get_currency_symbol self.currency
@@ -123,7 +123,7 @@ class Invoice < ActiveRecord::Base
     end
   end
   alias :name :full_name
-  
+
   def create_ledgeritem(params)
     Ledgeritem.create(
       :type_id      => self.id,
@@ -138,7 +138,7 @@ class Invoice < ActiveRecord::Base
       :currency     => Setting.invoice_currencies(self.currency)
     )
   end
-    
+
   def get_tax(amount,vat)
     tax_total = vat > 0 ? amount * (vat/100) : 0
   end
@@ -149,7 +149,7 @@ class Invoice < ActiveRecord::Base
     subtotal = self.amount + (!self.additions.blank? ? self.additions : 0)
     self.total = subtotal + get_tax(self.amount, self.vat)
   end
-  
+
   # Backend handler for [Create New Invoice] form (see invoice/create).
   #----------------------------------------------------------------------------
   def save_with_account_and_permissions(params)
@@ -189,8 +189,8 @@ class Invoice < ActiveRecord::Base
   end
 
   private
-  
-  # Make sure at least one user has been selected if the invoice is being shared. 
+
+  # Make sure at least one user has been selected if the invoice is being shared.
   #----------------------------------------------------------------------------
   def users_for_shared_access
     errors.add(:access, "^Please specify users to share the invoice with.") if self[:access] == "Shared" && !self.permissions.any?
