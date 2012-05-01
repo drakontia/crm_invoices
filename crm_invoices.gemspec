@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path('../lib', __FILE__)
-require 'fat_free_crm/version'
+#require 'fat_free_crm/version'
 
 Gem::Specification.new do |gem|
   gem.name = 'fat_free_crm'
@@ -10,7 +10,7 @@ Gem::Specification.new do |gem|
   gem.homepage = 'http://fatfreecrm.com'
   gem.email = ['mike@fatfreecrm.com', 'nathan@fatfreecrm.com', 'warp@fatfreecrm.com']
   gem.files = `git ls-files`.split("\n")
-  gem.version = FatFreeCRM::VERSION::STRING
+#  gem.version = FatFreeCRM::VERSION::STRING
 
   gem.add_dependency 'rails', '~> 3.2.2'
   gem.add_dependency 'prototype-rails'

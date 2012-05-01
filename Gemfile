@@ -3,8 +3,8 @@ source :rubygems
 # Uncomment the database that you have configured in config/database.yml
 # ----------------------------------------------------------------------
 gem 'mysql2', '0.3.10'
-gem 'sqlite3'
-gem 'pg', '~> 0.13.2'
+#gem 'sqlite3'
+#gem 'pg', '~> 0.13.2'
 
 # Removes a gem dependency
 def remove(name)
@@ -20,10 +20,10 @@ end
 # Bundler no longer treats runtime dependencies as base dependencies.
 # The following code restores this behaviour.
 # (See https://github.com/carlhuda/bundler/issues/1041)
-spec = Bundler.load_gemspec(Dir["./{,*}.gemspec"].first)
-spec.runtime_dependencies.each do |dep|
-  gem dep.name, *(dep.requirement.as_list)
-end
+#spec = Bundler.load_gemspec(Dir["./{,*}.gemspec"].first)
+#spec.runtime_dependencies.each do |dep|
+#  gem dep.name, *(dep.requirement.as_list)
+#end
 
 # Override the following gems with forked repos on GitHub
 gem 'ransack', :git => "https://github.com/fatfreecrm/ransack.git"
