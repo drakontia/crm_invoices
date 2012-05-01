@@ -1,7 +1,7 @@
-require "dispatcher"
+require "reloader"
 
-Dispatcher.to_prepare do
-  
+Reloader.to_prepare do
+
   # Extend :account model to add :invoices association.
   Account.send(:include, AccountInvoiceAssociations)
 
