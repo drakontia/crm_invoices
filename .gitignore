@@ -10,3 +10,4 @@ public/stylesheets/cache/*.css
 .DS_Store
 *~
 *.swp
+vendor/plugins/*
