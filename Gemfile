@@ -20,16 +20,12 @@ end
 # Bundler no longer treats runtime dependencies as base dependencies.
 # The following code restores this behaviour.
 # (See https://github.com/carlhuda/bundler/issues/1041)
-#spec = Bundler.load_gemspec(Dir["./{,*}.gemspec"].first)
-#spec.runtime_dependencies.each do |dep|
-#  gem dep.name, *(dep.requirement.as_list)
-#end
+spec = Bundler.load_gemspec(Dir["./{,*}.gemspec"].first)
+spec.runtime_dependencies.each do |dep|
+  gem dep.name, *(dep.requirement.as_list)
+end
 
 # Override the following gems with forked repos on GitHub
-gem 'ransack', :git => "https://github.com/fatfreecrm/ransack.git"
-gem 'chosen-rails', :git => "https://github.com/fatfreecrm/chosen-rails.git"
-gem 'responds_to_parent', :git => "https://github.com/LessonPlanet/responds_to_parent.git"
-gem 'email_reply_parser', :git => "https://github.com/ndbroadbent/email_reply_parser.git", :branch => 'ensure_newline_above_underscores'
 gem 'premailer', :require => false
 
 
@@ -42,7 +38,7 @@ group :development, :test do
   gem 'headless'
   unless ENV["CI"]
     gem 'ruby-debug', :platform => :mri_18
-    gem 'debugger', :platform => :mri_19
+    gem (RUBY_VERSION == "1.9.2" ? 'ruby-debug19' : 'debugger'), :platform => :mri_19
   end
   gem 'pry-rails'
 end
