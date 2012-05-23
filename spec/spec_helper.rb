@@ -1,5 +1,4 @@
 require 'rubygems'
-require 'initializer'
 
 begin
   require File.dirname(__FILE__) + '/../spec/spec_helper'
