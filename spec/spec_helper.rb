@@ -1,3 +1,6 @@
+require 'rubygems'
+require 'initializer'
+
 begin
   require File.dirname(__FILE__) + '/../spec/spec_helper'
 rescue LoadError
@@ -15,12 +18,6 @@ end
   require 'factory_girl'
   require 'ffaker'
 
-  # Requires supporting ruby files with custom matchers and macros, etc,
-  # in spec/support/ and its subdirectories.
-  Dir[Rails.root.join("spec/support/**/*.rb")].each{ |f| require File.expand_path(f) }
-
-  # Load shared behavior modules to be included by Runner config.
-  Dir[File.dirname(__FILE__) + "/shared/*.rb"].each{ |f| require File.expand_path(f) }
 
   TASK_STATUSES = %w(pending assigned completed).freeze
 
