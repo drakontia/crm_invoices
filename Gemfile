@@ -33,6 +33,7 @@ gem 'premailer', :require => false
 remove 'fat_free_crm'
 
 group :development, :test do
+  gem 'rspec'
   gem 'rspec-rails', '~> 2.9.0'
   gem 'steak', :require => false
   gem 'headless'
