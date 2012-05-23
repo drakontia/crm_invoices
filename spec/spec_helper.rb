@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'active_record'
+require 'rails/all'
 
 begin
   require File.dirname(__FILE__) + '/../spec/spec_helper'
