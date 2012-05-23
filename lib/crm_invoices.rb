@@ -1,6 +1,4 @@
-require "reloader"
-
-Reloader.to_prepare do
+Rails.configuration.to_prepare do
 
   # Extend :account model to add :invoices association.
   Account.send(:include, AccountInvoiceAssociations)
