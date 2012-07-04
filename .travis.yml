@@ -9,8 +9,6 @@ env:
   - DB=postgres
   - DB=sqlite
 
-gemfile: Gemfile.ci
-
 # Only run a cross-section of 4 builds.
 matrix:
   exclude:
@@ -27,18 +25,22 @@ matrix:
       env: DB=sqlite
       gemfile: Gemfile.ci
 
-bundler_args: --path=vendor/bundle --without heroku
+install: "echo skip bundle install"
 
 before_script:
-  - sh -c "cp config/database.$DB.yml config/database.yml"
+  - export WORKSPACE=`pwd`/workspace
+  - export PATH_TO_INVOICES=`pwd`
+  - export PATH_TO_FATFREE=$WORKSPACE/fatfree
+  - mkdir $WORKSPACE
+  - sh -c "cp config/database.$DB.yml $WORKSPACE/database.yml"
   - sh -c "if [ \"$DB\" = 'postgres' ]; then psql -c 'create database fat_free_crm_test;' -U postgres; fi"
   - sh -c "if [ \"$DB\" = 'mysql' ]; then mysql -e 'create database fat_free_crm_test;'; fi"
   - "export DISPLAY=:99"
   - "sh -e /etc/init.d/xvfb start"
-
-# Run specs, acceptance tests, and ensure that assets can compile without errors
-# script: "bundle exec rake spec && bundle exec rake acceptance && RAILS_ENV=production bundle exec rake assets:precompile:primary"
-script: "bundle exec rake spec"
+  - bash -x ./fatfreecrm_install.sh -c
+  - bash -x ./fatfreecrm_install.sh -i
+  - bash -x ./fatfreecrm_install.sh -t
+  - bash -x ./fatfreecrm_install.sh -u
 
 # To stop Travis from running tests for a new commit,
 # add the following to your commit message: [ci skip]
