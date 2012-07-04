@@ -77,6 +77,7 @@ bundle exec rake db:create RAILS_ENV=development
 bundle exec rake db:migrate RAILS_ENV=test --trace
 bundle exec rake db:migrate RAILS_ENV=development --trace
 
+export PROCEED=true
 bundle exec rake ffcrm:setup USERNAME=admin PASSWORD=password EMAIL=admin@example.com
 
 # setup fatfree default data
