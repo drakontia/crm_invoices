@@ -65,7 +65,7 @@ ln -sf $PATH_TO_INVOICES $PATH_TO_PLUGINS/crm_invoices
 
 # install gems
 mkdir -p vendor/bundle
-cp ../../Gemfile .
+cp $WORKSPACE/Gemfile .
 bundle install --path vendor/bundle --without heroku
 
 # copy database.yml
