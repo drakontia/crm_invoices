@@ -36,9 +36,6 @@ run_tests()
 
   cd $PATH_TO_FATFREE
 
-  rm -rg ./spec/
-  ls -sf $PATH_TO_INVOICES/spec/ .
-
   # Run specs, acceptance tests, and ensure that assets can compile without errors
   bundle exec rake spec
   #bundle exec rake acceptance
