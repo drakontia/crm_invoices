@@ -65,7 +65,7 @@ class Invoice < ActiveRecord::Base
 
   uses_user_permissions
   acts_as_commentable
-  is_paranoid
+  #is_paranoid
 
   validates_presence_of :title, :message => "^Please specify an invoice title."
   validates_presence_of :amount, :message => "^Please specify an amount for the invoice."
