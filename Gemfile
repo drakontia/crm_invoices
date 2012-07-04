@@ -27,7 +27,7 @@ end
 
 # Override the following gems with forked repos on GitHub
 gem 'premailer', :require => false
-
+gem 'simple_column_search'
 
 # Remove fat_free_crm dependency, to stop it from being auto-required too early.
 remove 'fat_free_crm'
