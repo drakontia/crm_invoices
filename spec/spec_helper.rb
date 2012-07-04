@@ -13,6 +13,7 @@ end
   ENV["RAILS_ENV"] = 'test'
   require 'rspec/rails'
   require 'rspec/autorun'
+  require 'capybara/rspec'
   require 'fuubar'
 
   # Load factories
