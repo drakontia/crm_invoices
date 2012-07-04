@@ -16,7 +16,7 @@ matrix:
 
 install: "echo skip bundle install"
 
-before_script:
+script:
   - export WORKSPACE=`pwd`/workspace
   - export PATH_TO_INVOICES=`pwd`
   - export PATH_TO_FATFREE=$WORKSPACE/fatfree
