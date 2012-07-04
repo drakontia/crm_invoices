@@ -65,6 +65,7 @@ ln -sf $PATH_TO_INVOICES $PATH_TO_PLUGINS/crm_invoices
 
 # install gems
 mkdir -p vendor/bundle
+echo "gem 'simple_column_search'" >> $BUNDLE_GEMFILE
 bundle install --path vendor/bundle --without heroku
 
 # copy database.yml
