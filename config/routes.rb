@@ -1,4 +1,4 @@
-Rails.application.routes.draw do |map|
+Rails.application.routes.draw do
   scope (!Setting.table_exists? || Setting.base_url.blank?) ? "/" : Setting.base_url do
     resources :invoices do
       collection do
