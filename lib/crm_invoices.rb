@@ -4,7 +4,7 @@ Rails.configuration.to_prepare do
   Account.send(:include, AccountInvoiceAssociations)
 
   # Make invoices observable.
-  ActivityObserver.instance.send :add_observer!, Invoice
+  EntityObserver.instance.send :add_observer!, Invoice
 
   # Add :invoices plugin helpers.
   ActionView::Base.send(:include, InvoicesHelper)
